@@ -1,0 +1,13 @@
+{
+  "Title": "Verify whether the question can be answered or not just looking at the picture",
+  "Description": "Verify whether the question can be answered or not just looking at the picture",
+  "Keywords": "image,images,question-answer,vision",
+  "Reward": 0.9,
+  "LifetimeInSeconds": 345600,
+  "AssignmentDurationInSeconds": 450,
+  "FrameHeight": 20000,
+  "MaxAssignments": 3,
+  "PercentApproved": 80,
+  "HitsApproved": 100,
+  "Country": ["US"]
+}
