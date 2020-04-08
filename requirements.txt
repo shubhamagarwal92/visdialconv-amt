@@ -15,3 +15,4 @@
 Jinja2
 MarkupSafe
 boto3
+pandas
