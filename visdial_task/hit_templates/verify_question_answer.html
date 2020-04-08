@@ -1,0 +1,381 @@
+<html>
+<head>
+  <title>Verify whether the question can be answered or not just looking at the picture.</title>
+  <!-- easyturk depends on these libraries -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js'></script>
+  <!-- end of required libraries -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js'></script>
+  <style>
+    #counter {
+      margin: 0 10px;
+      font-size: 20pt;
+      font-weight: bold;
+    }
+    <!--This is actually controlling the height of image-->
+    img {
+      height: 300px;
+    }
+    img.example {
+      height: 300px;
+    }
+    <!--SA: trying container for this-->
+    .image-txt-container {
+      display:flex;
+      align-items:left;
+      flex-direction: row;
+    }
+    .tasks-container {
+      max-height: auto;
+      margin-top: 15px;
+      margin-bottom: 30px;
+      background-color: #DBDBDB;
+    }
+    .examples-container {
+      max-height: auto;
+      margin-top: 15px;
+      margin-bottom: 30px;
+      background-color: #9fbccb;
+    }
+    .instructions-container {
+      max-height: auto;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      background-color: #F0EAD6;
+    }
+    p {
+      font-size: 17px;
+      text-align: left;
+    }
+    li {
+        font-size: 17px;
+    }
+    div {
+        font-size: 17px;
+    }
+  </style>
+</head>
+<body>
+<div class='container instructions-container'>
+  <div id='instructions-section'>
+    <div class='instructions'>
+      <div class='row'>
+        <div class='col-md-12'>
+          <h3>Instructions</h3>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-12'>
+          <ul>
+            <li>This task is fairly simple. In this task, you will be shown a picture and a question. Your task is to specify whether the question can be answered independently just seeing the image without any other context or information about the previous conversation.</li>
+            <!--<li> Example: If there are 2 persons (male and female) in an image and the question is-->
+              <!--<ul>-->
+              <!--<li>"What is the color of his shirt?" then this can probably be answered based on the image as we are talking about the boy </li>-->
+              <!--<li>"What is the color of the shirt that person is wearing?" then you need more information if we are talking about the boy or girl </li>-->
+              <!--</ul>-->
+            <!--</li>-->
+            <li>You have to select either of the following responses:
+              <ul>
+                <li> I can confidently tell the correct answer just seeing the image </li>
+                <li> I want to know what was discussed before to answer confidently. Cannot answer with just the question and image. Need more information (context) from previous conversation. </li>
+                <li> I can answer it but by inferring using common sense </li>
+                <li> I can only guess the answer </li>
+                <li> I can't tell the answer </li>
+                <li> Not relevant question for this image </li>
+
+            </ul>
+            <font size="3">Good luck and have fun! </font> <font size="3" color="OrangeRed">Do not forget to press submit at the end! Otherwise all your progress will be lost.</font>
+          </ul>
+            <div class="image-txt-container">
+              <h5>Some examples:</h5>
+              <img class="img.example" src="http://www2.macs.hw.ac.uk/~sa201/data/VisualDialog_val2018/VisualDialog_val2018_000000001872.jpg" alt="Default" width="400" height="400" border="10" style="padding: 0 10px; float: left;">
+              <font size="4" color="blue">Question: "Are there any dogs in the image?" </font>
+              <br />
+              <font size="4" color="green"> You can confidently tell the correct answer just by looking at the image </font> as at least one the dog is clearly visible present.
+              <br />
+              <!--<br />-->
+              <font size="4" color="blue">Question: "What is <font size="3" color="OrangeRed">its</font> color?" </font>
+              <br />
+              <font size="4" color="green">Want to know what was discussed before to answer confidently. </font> Do not assume anything apart from the image or question. Here you need more information on what the word 'its' is referring to, i.e. You need more information if the previous conversation was about the dog or boat.
+              <br />
+              <font size="4" color="blue">Question: "What about the <font size="3" color="OrangeRed">other</font>?" </font>
+              <br />
+              <font size="4" color="green">Want to know what was discussed before to answer confidently. </font> Similarly, in this case of ambiguity, make no assumption here. We dont know if we are talking about mountain, boat or dog.
+              <br />
+              <!--<br />-->
+              <font size="4" color="blue">Question: "Is it a lake or sea?" / "How old is the dog?"</font>
+              <br />
+              <font size="4"> These are the type of questions where you can answer by <font size="4" color="green">common sense </font> or <font size="4" color="green"> just guessing.</font> You actually dont need the previous context of the conversation.</font>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='container tasks-container'>
+  <div class='container'>
+    <h4>Here is the picture and the question. We would like you to verify if you would be able to answer this without any other information. </h4>
+  </div>
+
+  <div class="image-txt-container">
+    <div id='image-container'>
+    </div>
+    <!--<br />-->
+    <h5 style='color: blue;' id='question'></h5>
+    <br style="line-height:3px;" />
+    <h5>Would you be able to answer the question by looking at the image only or you need more information from previous conversation?</h5>
+    <div style='justify-content-center' style='margin-top: 10px; padding-bottom: 10px;'>
+        <button id='correct-btn' style="font-size : 18px;" class='btn btn-lg btn-primary'>I can confidently tell the correct answer just seeing the image</button>
+        <!--<br />-->
+        <!--https://forums.digitalpoint.com/threads/any-way-to-make-a-smaller-space-than-a-br-tag.40864/-->
+        <!--<br style="line-height:15px;" />-->
+        <div style="height:4px;font-size:1px;">&nbsp;</div>
+        <button id='hist-info-btn' style="font-size : 18px;" class='btn btn-lg btn-primary'>Want to know what was discussed before in the conversation to answer</button>
+        <div style="height:4px;font-size:1px;">&nbsp;</div>
+        <button id='common-sense-btn' style="font-size : 18px;" class='btn btn-lg btn-primary'>I can answer it but by inferring using common sense</button>
+        <!--<br />-->
+        <!--<br style="line-height:4px;" />-->
+        <div style="height:4px;font-size:1px;">&nbsp;</div>
+        <button id='guess-btn' style="font-size : 18px;" class='btn btn-lg btn-primary'>I can only guess the answer</button>
+        <!--<br />-->
+        <!--<br style="line-height:4px;" />-->
+        <div style="height:4px;font-size:1px;">&nbsp;</div>
+        <button id='cant-tell-btn' style="font-size : 18px;" class='btn btn-lg btn-primary'>I cannot tell the answer</button>
+        <!--<br />-->
+        <!--<br style="line-height:4px;" />-->
+        <div style="height:4px;font-size:1px;">&nbsp;</div>
+        <button id='not-relevant-btn' style="font-size : 18px;" class='btn btn-lg btn-primary'>Not relevant question for this image</button>
+    </div>
+    <br />
+    <br />
+    <div class='row justify-content-center' style='margin-top: 10px; padding-bottom: 10px;'>
+      <div class='col-2'>
+        <button id='prev-btn' class='btn btn-lg btn-primary' disabled>Back</button>
+      </div>
+      <div class='col-2'>
+        <span id='counter'>
+          <span class='counter-top'></span> / <span class='counter-bottom'></span>
+        </span>
+      </div>
+      <div class='col-2'>
+        <button id='next-btn' class='btn btn-lg btn-primary' disabled>Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--IMPORTANT: This import contains all the functions you need to read in your input data and send back worker outputs.-->
+{% include "visdial_task/hit_templates/simpleamt.html" %}
+
+  <script>
+  $(function() {
+    // Define some default input.
+    // It is good practice to define standard inputs for a task which will be overwritten when launching
+    // your actual task. The default inputs allow you to render and debug your task locally.
+    var DEFAULT_INPUT = [{"img_url": "https://cs.stanford.edu/people/rak248/VG_100K/1160052.jpg",
+                          "question": "This is an example question 1"},
+                         {"img_url": "http://www2.macs.hw.ac.uk/~sa201/data/VisualDialog_val2018/VisualDialog_val2018_000000000243.jpg",
+                          "question": "This is a sample question 2."}]
+
+    var input = null;
+
+    // This is where we will be collecting the output for each image;
+    var options = [];
+    <!--var output_dic = {'option': null,-->
+                     <!--'conf': null};-->
+
+    // Some variables to track state of the HIT.
+    var idx = 0;
+    var enabled = false;
+
+    function main() {
+      // If this is a HIT on AMT, then replace the default input with the real
+      // input.
+      input = simpleamt.getInput(DEFAULT_INPUT);
+
+      // Enable the task.
+      if (!simpleamt.isPreview()){
+        enable_hit();
+      }
+
+      // Set up the correct.
+      _.each(input, function() { options.push(null); });
+
+      // Preload all images
+      _.each(input, function(input_elem) {
+        var imgUrl = input_elem['img_url'];
+        var img = new Image();
+        img.onload = function() { console.log('loaded image from ' + imgUrl); };
+        img.src = imgUrl;
+      });
+
+      render();
+    }
+
+    // Use the current index to update the image and question
+    function render() {
+        // Set up the image
+        $('#image-container').empty();
+        $("<img style='width:450px; height:550px; padding: 0 5px; float: left;'>").attr('src', input[idx]['img_url']).appendTo($('#image-container'));
+
+        <!--$('#question').text('Q: ' + input[idx].question + '?');-->
+        $('#question').text('Question: ' + input[idx]['question'] + '?');
+
+        // Refresh the counter
+        $('.counter-top').text(idx + 1);
+        $('.counter-bottom').text(input.length);
+
+        // Setup the choice that the user already made.
+        render_verification_buttons();
+
+        // If the UI is enabled, enable or disable the buttons depending on
+        // the index.
+        if (enabled) {
+            $('#prev-btn').prop('disabled', false);
+            $('#next-btn').prop('disabled', false);
+            if (idx == 0) {
+                $('#prev-btn').prop('disabled', true);
+            }
+            if (idx == input.length - 1) {
+                $('#next-btn').prop('disabled', true);
+            }
+        }
+    }
+
+    // Render the colors of the buttons to show that user the choice they made.
+    function render_verification_buttons(){
+        if (options[idx] != null) {
+            if (options[idx] == 'correctly') {
+                $('#correct-btn').removeClass('btn-primary').addClass('btn-success');
+                $('#hist-info-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#common-sense-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#guess-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#cant-tell-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#not-relevant-btn').removeClass('btn-success').addClass('btn-primary');
+            } else if (options[idx] == 'hist_info'){
+                $('#correct-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#hist-info-btn').removeClass('btn-primary').addClass('btn-success');
+                $('#common-sense-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#guess-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#cant-tell-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#not-relevant-btn').removeClass('btn-success').addClass('btn-primary');
+            } else if (options[idx] == 'common_sense'){
+                $('#correct-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#hist-info-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#common-sense-btn').removeClass('btn-primary').addClass('btn-success');
+                $('#guess-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#cant-tell-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#not-relevant-btn').removeClass('btn-success').addClass('btn-primary');
+            } else if (options[idx] == 'guess'){
+                $('#correct-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#hist-info-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#common-sense-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#guess-btn').removeClass('btn-primary').addClass('btn-success');
+                $('#cant-tell-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#not-relevant-btn').removeClass('btn-success').addClass('btn-primary');
+            } else if (options[idx] == 'cant_tell'){
+                $('#correct-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#hist-info-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#common-sense-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#guess-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#cant-tell-btn').removeClass('btn-primary').addClass('btn-success');
+                $('#not-relevant-btn').removeClass('btn-success').addClass('btn-primary');
+            } else {
+                $('#correct-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#hist-info-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#common-sense-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#guess-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#cant-tell-btn').removeClass('btn-success').addClass('btn-primary');
+                $('#not-relevant-btn').removeClass('btn-primary').addClass('btn-success');
+            }
+        } else {
+              $('#correct-btn').removeClass('btn-success').addClass('btn-primary');
+              $('#hist-info-btn').removeClass('btn-success').addClass('btn-primary');
+              $('#common-sense-btn').removeClass('btn-success').addClass('btn-primary');
+              $('#guess-btn').removeClass('btn-success').addClass('btn-primary');
+              $('#cant-tell-btn').removeClass('btn-success').addClass('btn-primary');
+              $('#not-relevant-btn').removeClass('btn-success').addClass('btn-primary');
+        }
+    }
+
+    // Activate verification buttons.
+    $('#correct-btn').click(function() {
+        saveOption('correctly');
+    })
+    $('#hist-info-btn').click(function() {
+        saveOption('hist_info');
+    })
+    $('#common-sense-btn').click(function() {
+        saveOption('common_sense');
+    })
+    $('#guess-btn').click(function() {
+        saveOption('guess');
+    })
+    $('#cant-tell-btn').click(function() {
+        saveOption('cant_tell');
+    })
+    $('#not-relevant-btn').click(function() {
+        saveOption('not_relevant');
+    })
+
+    // Update the index, and save the text in the text area.
+    function setIdx(newIdx) {
+        if (newIdx < 0 || newIdx >= input.length) return;
+        idx = newIdx;
+        render();
+    }
+
+    // SA: Save option response.
+    function saveOption(response) {
+        options[idx] = response;
+        render_verification_buttons();
+    }
+
+    // Enable the UI.
+    function enable_hit() {
+      enabled = true;
+      simpleamt.setupSubmit();
+
+      // Enable components
+      $('#next-btn').click(function() {
+          setIdx(idx + 1);
+      });
+      $('#prev-btn').click(function() {
+          setIdx(idx - 1);
+      });
+      $('#submit-btn').prop('disabled', false);
+
+      $('#submit-btn').click(function() {
+        // Make sure to save the last one.
+        for (var i = 0; i < input.length; i++) {
+          if (options[i] == null || options[i].length == 0) {
+            alert('You did not provide an answer for #' + (i+1));
+            return false;
+          }
+        }
+
+        // Copy the options to the output we will return to the requester.
+        var output = input;
+        for (var i = 0; i < output.length; i++) {
+          output[i]['option'] = options[i];
+        }
+        if (simpleamt.isPreview()) {
+          alert("This is only a preview. Here is your output: \n" + JSON.stringify(output));
+          return false;
+        } else {
+          simpleamt.setOutput(output);
+          return true;
+        }
+      });
+    }
+
+    main();
+   });
+  </script>
+</body>
+</html>

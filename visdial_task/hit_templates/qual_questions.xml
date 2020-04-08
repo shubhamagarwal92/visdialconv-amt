@@ -1,0 +1,144 @@
+<QuestionForm xmlns='http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/QuestionForm.xsd'>
+  <Overview>
+  <Title>Verify whether the question can be answered or not just looking at the picture.</Title>
+
+  <Text>This task is fairly simple. In this task, you will be shown a picture and a question. Your task is to specify whether the question can be answered independently just seeing the image without any other context or information about the previous conversation.</Text>
+  <Text>You have to select either of the following responses:</Text>
+  <List>
+      <ListItem>I can confidently tell the correct answer just seeing the image</ListItem>
+      <ListItem>I want to know what was discussed before to answer confidently. Cannot answer with just the question and image. Need more information (context) from previous conversation. </ListItem>
+      <ListItem>I can answer it but by inferring using common sense </ListItem>
+      <ListItem>I can only guess the answer </ListItem>
+      <ListItem>I can't tell the answer</ListItem>
+      <ListItem>Not relevant question for this image</ListItem>
+  </List>
+
+    <Binary>
+      <MimeType>
+        <Type>image</Type>
+        <SubType>jpg</SubType>
+      </MimeType>
+      <DataURL>http://www2.macs.hw.ac.uk/~sa201/data/VisualDialog_val2018/VisualDialog_val2018_000000001872.jpg</DataURL>
+      <AltText>dog</AltText>
+    </Binary>
+  <Text>Some examples:</Text>
+
+
+  <List>
+      <ListItem> Question: "Are there any dogs in the image?"
+
+        You can confidently tell the correct answer just by looking at the image as at least one the dog is clearly visible present.
+
+      </ListItem>
+      <ListItem> Question: "What is its color?"
+
+        Want to know what was discussed before to answer confidently. Do not assume anything apart from the image or question. Here you need more information on what the word 'its' is referring to, i.e. You need more information if the previous conversation was about the dog or boat.
+
+      </ListItem>
+      <ListItem> Question: "What about the other?"
+
+        Want to know what was discussed before to answer confidently. Similarly, in this case of ambiguity about 'other', make no assumption here. We dont know if we are talking about mountain, boat or dog.
+
+      </ListItem>
+      <ListItem> Question: "Is it a lake or sea?" / "How old is the dog?"
+
+        These are the type of questions where you can answer by common sense or just guessing. You actually dont need the previous context of the conversation.
+
+      </ListItem>
+  </List>
+  </Overview>
+  <Question>
+      <QuestionIdentifier>q_correctly</QuestionIdentifier>
+      <DisplayName>Q1</DisplayName>
+      <IsRequired>true</IsRequired>
+      <QuestionContent>
+        <Text> is the plane above any bodies of water? </Text>
+        <Binary>
+          <MimeType>
+            <Type>image</Type>
+            <SubType>jpg</SubType>
+          </MimeType>
+          <DataURL>http://www2.macs.hw.ac.uk/~sa201/data/VisualDialog_val2018//VisualDialog_val2018_000000036690.jpg</DataURL>
+          <AltText>plane</AltText>
+        </Binary>
+      </QuestionContent>
+      <AnswerSpecification>
+        <SelectionAnswer>
+          <StyleSuggestion>radiobutton</StyleSuggestion>
+          <Selections>
+            <Selection>
+              <SelectionIdentifier>correctly</SelectionIdentifier>
+              <Text>I can confidently tell the correct answer just seeing the image</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>hist_info</SelectionIdentifier>
+              <Text>Want to know what was discussed before in the conversation to answer</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>common_sense</SelectionIdentifier>
+              <Text>I can answer it but by inferring using common sense</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>guess</SelectionIdentifier>
+              <Text>I can only guess the answer</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>cant_tell</SelectionIdentifier>
+              <Text>I cannot tell the answer</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>not_relevant</SelectionIdentifier>
+              <Text>Not relevant question for this image</Text>
+            </Selection>
+          </Selections>
+        </SelectionAnswer>
+      </AnswerSpecification>
+  </Question>
+  <Question>
+      <QuestionIdentifier>q_hist</QuestionIdentifier>
+      <DisplayName>Q2</DisplayName>
+      <IsRequired>true</IsRequired>
+      <QuestionContent>
+        <Text> do you see other appliances? </Text>
+        <Binary>
+          <MimeType>
+            <Type>image</Type>
+            <SubType>jpg</SubType>
+          </MimeType>
+          <DataURL>http://www2.macs.hw.ac.uk/~sa201/data/VisualDialog_val2018//VisualDialog_val2018_000000162655.jpg</DataURL>
+          <AltText>appliances</AltText>
+        </Binary>
+      </QuestionContent>
+      <AnswerSpecification>
+        <SelectionAnswer>
+          <StyleSuggestion>radiobutton</StyleSuggestion>
+          <Selections>
+            <Selection>
+              <SelectionIdentifier>correctly</SelectionIdentifier>
+              <Text>I can confidently tell the correct answer just seeing the image</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>hist_info</SelectionIdentifier>
+              <Text>Want to know what was discussed before in the conversation to answer</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>common_sense</SelectionIdentifier>
+              <Text>I can answer it but by inferring using common sense</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>guess</SelectionIdentifier>
+              <Text>I can only guess the answer</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>cant_tell</SelectionIdentifier>
+              <Text>I cannot tell the answer</Text>
+            </Selection>
+            <Selection>
+              <SelectionIdentifier>not_relevant</SelectionIdentifier>
+              <Text>Not relevant question for this image</Text>
+            </Selection>
+          </Selections>
+        </SelectionAnswer>
+      </AnswerSpecification>
+  </Question>
+</QuestionForm>
