@@ -2,6 +2,16 @@
 
 This repository contains code used for data collection on AMT in our ACL'20 paper `History for Visual Dialog: Do we really need it?`
 
+These are the set of instructions that were provided to the crowdturkers.
+![AMT interface](assets/amt_interface.png)
+
+Task for the crowdworkers looked like:
+![Task](assets/task.png)
+
+We also setup a qualification test for the users before they can even attempt the task. 
+![Qualification test](assets/qual_test.png)
+
+
 ## Credits
 
 This repository is build upon [simple-amt](https://github.com/jcjohnson/simple-amt). Previous commit history is maintained. 
