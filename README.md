@@ -27,7 +27,7 @@ conda activate visdialconv_amt
 pip install -r requirements.txt
 ```
 
-Most of the code specific to our task resides in `visdial_task` folder while we follow the same boilerplate code provided by simple-amt. Thanks to @jcjohnson. Copy/edit the code in this folder according to your task. 
+Most of the code specific to our task resides in [visdial_task](./visdial_task) folder while we follow the same boilerplate code provided by simple-amt. Thanks to @jcjohnson. Copy/edit the code in this folder according to your task. 
 
 For a quick look into templates, see [visdial_task/hit_templates](./visdial_task/hit_templates)
 
